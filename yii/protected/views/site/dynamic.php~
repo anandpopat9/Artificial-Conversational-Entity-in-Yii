@@ -1,0 +1,46 @@
+<?php
+$first;
+$query;
+$withoutp;
+$squery;//array
+
+$i=0;
+
+      	
+        $sql = "SELECT query FROM dquery";
+      	
+      	if($result1 = mysqli_query($con,$sql) or die(mysqli_error($con))!==null)
+      	{
+      		while ($row = mysqli_fetch_array($result1, MYSQL_NUM))
+          	{
+          		$row[0]=strtolower($row[0]);
+      			if(is_numeric(stripos($withoutp,$row[0])))
+      			{	echo "test";
+      				$sql = "SELECT query FROM dquery";
+      	
+      				if($result2 = mysqli_query($con,$sql) or die(mysqli_error($con))!==null)
+      				{
+      					while ($row1 = mysqli_fetch_array($result2, MYSQL_NUM))
+          				{
+      						$karray[$i]=$row1[0];
+      						$i++;
+      					}
+            				$rand_k = array_rand($karray);
+            				$k=$karray[$rand_k];
+            				
+            				$qvar= mysqli_real_escape_string($con,$k);
+            				echo $qvar;
+          					$sql = "SELECT response FROM dresponse where id='$qvar'";
+      						if($result1 = mysqli_query($con,$sql) or die(mysqli_error($con))!==null)
+				      		{
+      						if ($row = mysqli_fetch_array($result1, MYSQL_NUM))
+          						{
+      					   		$response=$row[0];
+      					   		$rtype='dynamic';
+      					   		$sent='dynamic';
+      							}
+      						}	
+      				}
+      			}
+      		}
+      	}
